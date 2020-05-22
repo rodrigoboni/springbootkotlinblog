@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.3.72"
 	kotlin("plugin.spring") version "1.3.72" // able use of @configuration and @transacional without need of open qualifier in classes
 	kotlin("plugin.jpa") version "1.3.72" // required for no-arg constructor for any class annotated with @entity
+	kotlin("plugin.allopen") version "1.3.61" // required for using lazy fetching in jpa
 }
 
 group = "com.rmboni"
