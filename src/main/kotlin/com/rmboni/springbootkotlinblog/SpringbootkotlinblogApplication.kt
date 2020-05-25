@@ -14,4 +14,6 @@ fun main(args: Array<String>) {
          setBannerMode(Banner.Mode.OFF)
        } */
 	runApplication<SpringbootkotlinblogApplication>(*args)
+
+	// notice de lack of semicolons, it's not required in kotlin
 }

@@ -13,7 +13,7 @@ With Spring Data MongoDB, Spring Data JDBC etc data classes can be used without 
  */
 
 @Entity
-class Article(
+class Article( // using primary constructor to declare at the same time properties and constructor parameters
         var title: String,
         var headline: String,
         var content: String,
@@ -21,6 +21,8 @@ class Article(
         var slug: String = title.toSlug(), //using string extension
         var addedAt: LocalDateTime = LocalDateTime.now(),
         @Id @GeneratedValue var id: Long? = null)
+
+// notice that in Kotlin is not unusual to group concise class declarations in the same file
 
 @Entity
 class User(

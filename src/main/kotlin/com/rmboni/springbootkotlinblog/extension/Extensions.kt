@@ -3,6 +3,13 @@ import java.time.format.DateTimeFormatterBuilder
 import java.time.temporal.ChronoField
 import java.util.*
 
+/*
+Instead of using util classes with abstract methods like in Java, it is usual in Kotlin to provide such functionalities via Kotlin extensions.
+Here we are going to add a format() function to the existing LocalDateTime type in order to generate text with the english date format.
+
+(Default format method requires a formatter)
+ */
+
 fun LocalDateTime.format() = this.format(englishDateFormatter)
 
 private val daysLookup = (1..31).associate { it.toLong() to getOrdinal(it) }
@@ -23,6 +30,7 @@ private fun getOrdinal(n: Int) = when {
     else -> "${n}th"
 }
 
+// another extension, this time into String class
 fun String.toSlug() = toLowerCase()
         .replace("\n", " ")
         .replace("[^a-z\\d\\s]".toRegex(), " ")
