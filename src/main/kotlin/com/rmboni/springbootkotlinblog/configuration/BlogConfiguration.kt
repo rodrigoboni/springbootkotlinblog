@@ -12,11 +12,11 @@ import org.springframework.context.annotation.Configuration
 class BlogConfiguration {
 
     @Bean
-    // function that returns an ApplicationRunner (executed in application initialization)
+    // function which returns an ApplicationRunner (executed in application initialization)
     fun databaseInitializer(userRepository: UserRepository,
                             articleRepository: ArticleRepository) = ApplicationRunner {
 
-        val smaldini = userRepository.save(User("smaldini", "Stéphane", "Maldini"))
+        val user = userRepository.save(User("ze_mockinho", "Zé", "Mockinho"))
 
         // notice the usage of named parameters to make code more readable
         articleRepository.save(
@@ -24,14 +24,14 @@ class BlogConfiguration {
             title = "Reactor Bismuth is out",
             headline = "Lorem ipsum",
             content = "dolor sit amet",
-            author = smaldini
+            author = user
         )
         )
         articleRepository.save(Article(
             title = "Reactor Aluminium has landed",
             headline = "Lorem ipsum",
             content = "dolor sit amet",
-            author = smaldini
+            author = user
         ))
     }
 }

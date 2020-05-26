@@ -9,6 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
 
+/*
+notice some details about kotlin:
+-the name of the file doesn't needs to correspond to the class name
+-one file can hold more then one public class
+-in class declaration there is an primary constructor, with @autowired annotation implicity included
+-the elvis operator (?:) gives code simplicity and null safety
+ */
+
 @RestController
 @RequestMapping("/api/article")
 class ArticleController(private val repository: ArticleRepository) {

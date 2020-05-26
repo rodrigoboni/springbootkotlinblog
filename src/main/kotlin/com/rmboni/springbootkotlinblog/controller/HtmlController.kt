@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.server.ResponseStatusException
 
 @Controller
-class HtmlController(private val repository: ArticleRepository) { // when there is a single and primary constructor, @Autowired is implicity included
+// when there is a single and primary constructor, @Autowired is implicity included
+class HtmlController(private val repository: ArticleRepository) {
 
     @GetMapping("/")
     fun blog(model: Model): String {
@@ -61,5 +62,4 @@ class HtmlController(private val repository: ArticleRepository) { // when there 
         val author: User,
         val addedAt: String
     )
-
 }

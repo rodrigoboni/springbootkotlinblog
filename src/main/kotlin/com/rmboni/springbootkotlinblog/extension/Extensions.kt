@@ -12,6 +12,8 @@ Here we are going to add a format() function to the existing LocalDateTime type 
 
 fun LocalDateTime.format() = this.format(englishDateFormatter)
 
+// .. returns a collection from a period of 1 to 31
+// associate is another method from collections, which returns a map, applying the specified transform function
 private val daysLookup = (1..31).associate { it.toLong() to getOrdinal(it) }
 
 private val englishDateFormatter = DateTimeFormatterBuilder()
