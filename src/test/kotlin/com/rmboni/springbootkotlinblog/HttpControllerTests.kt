@@ -17,9 +17,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @WebMvcTest
-class HttpControllerTests(@Autowired val mockMvc: MockMvc) {
+class HttpControllerTests(@Autowired val mockMvc: MockMvc) { //
 
     @MockkBean
+    // lateinit fix the requirement of setting property type with nullable(?) - mockito will initialize these properties after compiled
     private lateinit var userRepository: UserRepository
 
     @MockkBean
@@ -31,9 +32,11 @@ class HttpControllerTests(@Autowired val mockMvc: MockMvc) {
         val article1 = Article("Spring framework", "Spring framework is cool", "Ze mockinho viaja na maionese", user)
         val article2 = Article("Serverless", "Serverless + JS + AWS", "Ze mockinho se perde no js", user)
 
+        // mocking repository behavior
         every { articleRepository.findAllByOrderByAddedAtDesc() } returns listOf(article1, article2)
 
-        mockMvc.perform(get("/api/article").accept(MediaType.APPLICATION_JSON))
+        // performing mocked http request and checking results
+        mockMvc.perform(get("/api/article/").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk)
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("\$.[0].author.login").value(user.login))
@@ -46,11 +49,12 @@ class HttpControllerTests(@Autowired val mockMvc: MockMvc) {
     fun `List users`() {
         val juergen = User("springjuergen", "Juergen", "Hoeller")
         val smaldini = User("smaldini", "Stéphane", "Maldini")
+
         every { userRepository.findAll() } returns listOf(juergen, smaldini)
 
         mockMvc.perform(get("/api/user/").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk)
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("\$.[0].login").value(juergen.login))
                 .andExpect(jsonPath("\$.[1].login").value(smaldini.login))
     }

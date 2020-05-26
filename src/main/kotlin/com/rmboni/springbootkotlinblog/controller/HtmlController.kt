@@ -1,5 +1,6 @@
 package com.rmboni.springbootkotlinblog.controller
 
+import com.rmboni.springbootkotlinblog.configuration.BlogProperties
 import com.rmboni.springbootkotlinblog.model.Article
 import com.rmboni.springbootkotlinblog.model.User
 import com.rmboni.springbootkotlinblog.repository.ArticleRepository
@@ -14,13 +15,14 @@ import org.springframework.web.server.ResponseStatusException
 
 @Controller
 // when there is a single and primary constructor, @Autowired is implicity included
-class HtmlController(private val repository: ArticleRepository) {
+class HtmlController(private val repository: ArticleRepository,
+    private val properties: BlogProperties) { // inject blog properties data class with application properties values
 
     @GetMapping("/")
     fun blog(model: Model): String {
         // with org.springframework.ui.set extension it's possible to write no model obj directly, instead of model.addAttribute()
-        model["title"]="Blog"
-
+        model["title"]=properties.title
+        model["banner"]=properties.banner
         // map runs in each result, referred as "it" (scope function)
         model["articles"] = repository.findAllByOrderByAddedAtDesc().map {
             it.render()
